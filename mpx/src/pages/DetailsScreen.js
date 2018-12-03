@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation'; 
+import { View, Text,WebView,ActivityIndicator } from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import Entypoicon from 'react-native-vector-icons/Entypo'
 import {Toast} from 'teaset'
@@ -8,14 +7,17 @@ import {Toast} from 'teaset'
 export default class DetailsScreen extends React.Component {
     static navigationOptions = ({navigation})=>{
         return {
-            title: '详情页',
+            title: navigation.getParam('title'),
             // headerTintColor: '#1b9fe2',
             headerRight: (
                 <View style={{paddingRight:20,flex:1,flexDirection: 'row'}}>
                     <Entypoicon style={{paddingRight:10}} name={'share'} size={20} color="#1b9fe2"
                         onPress={navigation.getParam('handleShare')}
                     />
-                    <Anticon name={navigation.getParam('collection')?'heart':'hearto'} size={20} color="#1b9fe2"
+                    <Anticon 
+                        name={'like1'}
+                        size={20}
+                        color="#1b9fe2"
                         onPress={navigation.getParam('handleCollection')}
                     />
                 </View>
@@ -44,15 +46,16 @@ export default class DetailsScreen extends React.Component {
     render() {
         const { navigation } = this.props;
         // 第一个参数是属性名 第二个是默认自 如果获取的参数不存在 会返回第二个参数
-        const name = navigation.getParam('name','no-name')
+        const id = navigation.getParam('id')
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Details Screen</Text>
-                <Text>{name}</Text>
-                <Text>{this.state.count}</Text>
-                <Button 
-                    title="收藏"
-                    // onPress={navigation.setParams({collection:!this.state.collection})}
+            <View style={{width:"100%",height:"100%"}}>
+                <WebView 
+                    source={{uri:'https://blog.sozxw.com/mobile/a/'+id}}
+                    style={{width:'100%',height:'100%'}}
+                    renderLoading={()=><ActivityIndicator style={{marginTop:20}} size="large" color="#1b9fe2"/>}
+                    startInLoadingState={true}
+                    injectedJavaScript={"document.getElementById('footer').style.display='none'"}
+                    scalesPageToFit={false}
                 />
             </View>
         );

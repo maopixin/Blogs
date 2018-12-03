@@ -3,7 +3,7 @@ import React from 'react'
 import AntIcon from 'react-native-vector-icons/AntDesign'
 import HomePage from './HomeNavigator'
 import Page1 from './PageNavigator1'
-import Page2 from './PageNavigator2'
+import My from './PageNavigator2'
 
 const TabNavigator = createBottomTabNavigator({
     Home:{
@@ -12,10 +12,11 @@ const TabNavigator = createBottomTabNavigator({
     Page1:{
         screen:Page1,
     },
-    Page2:{
-        screen:Page2,
+    My:{
+        screen:My,
     },
 },{
+    initialRouteName:"My",
     defaultNavigationOptions: ({navigation}) => ({
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
             const { routeName } = navigation.state;
@@ -24,13 +25,13 @@ const TabNavigator = createBottomTabNavigator({
               iconName = "home";
             } else if (routeName === 'Page1') {
               iconName = `hearto`;
-            } else if (routeName === 'Page2') {
+            } else if (routeName === 'My') {
                 iconName = `user`;
             }
-            return <AntIcon name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+            return <AntIcon name={iconName} size={24} color={tintColor}/>;
         },
         tabBarOptions: {
-            activeTintColor: 'tomato',
+            activeTintColor: '#1b9fe2',
             inactiveTintColor: 'gray',
         },
     })

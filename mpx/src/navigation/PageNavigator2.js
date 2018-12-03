@@ -1,11 +1,11 @@
 import {  createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
-import Page2 from '../pages/Page2'
+import MyIndex from '../pages/MyIndex'
 
 
 
-const PageNavigator2 = createStackNavigator({
-  Page2: {
-    screen: Page2,
+const My = createStackNavigator({
+  My: {
+    screen: MyIndex,
   },
 }, {
     defaultNavigationOptions: {
@@ -19,4 +19,4 @@ const PageNavigator2 = createStackNavigator({
     },
 });
 
-export default PageNavigator2;
+export default My;

@@ -31,26 +31,12 @@ export default class HomeScreen extends React.Component {
   render() {
     const {navigation} = this.props
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: '' }}>
-        <ScrollableTabView
-          renderTabBar={() => <FacebookTabBar />}
-          // tabBarPosition='overlayTop'
-        >
-          <Page3 tabLabel="最新" style={styles.tabView}/>
-          <Page4 tabLabel="热门" style={styles.tabView}/>
-          {/* <JestPage tabLabel="Jest" /> */}
-        </ScrollableTabView>
-        {/* <Text>这里是首页</Text>
-        <Button
-          title="去详情页"
-          onPress={() => {
-            navigation.navigate('Details',{
-              name:"mao",
-              collection:true
-            })
-          }} */}
-        />
-      </View>
+      <ScrollableTabView
+        renderTabBar={() => <FacebookTabBar />}
+      >
+        <Page3 tabLabel="技术心得" navigation={navigation} style={styles.tabView}/>
+        <Page4 tabLabel="生活随笔" navigation={navigation} style={styles.tabView}/>
+      </ScrollableTabView>
     );
   }  
 }

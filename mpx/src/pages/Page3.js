@@ -1,79 +1,124 @@
 import React from 'react';
-import { View, Text, Button ,StyleSheet ,FlatList,Image} from 'react-native';
+import { View, Text ,StyleSheet ,FlatList,Image,TouchableOpacity} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
-import { StackActions, NavigationActions } from 'react-navigation';
 import {Toast} from 'teaset'
 
 export default class Page3 extends React.Component {
-  static navigationOptions = {
-    title: '个人信息',
-    // headerStyle: {
-    //   // backgroundColor: '#f4511e',
-    // },
-    // headerTintColor: '#1b9fe2',
-    // headerRight: (
-    //   <View style={{paddingRight:20,}}>
-    //     <Anticon name='search1' size={20} color="#1b9fe2"
-    //       onPress={()=>{
-    //         Toast.sad('搜索功能暂未开放');
-    //       }}
-    //     />
-    //   </View>
-    // ),
-  };
   constructor(props){
     super(props);
     this.state = {
       list:[],
       page:1,
+      refreshing:true,
     }
   }
-  componentWillMount = () => {
-    fetch("https://blog.sozxw.com/api/article/?page=2",{
+
+  componentWillMount(){
+    this.getArticle()
+  }
+
+  getArticle = (page=this.state.page) => {
+    
+    fetch("https://blog.sozxw.com/api/article/?page="+page,{
       method:"GET",
       mode:"cors",
       headers:{
         "Content-Type":"application/x-www-form-urlencoded"
       }
-    }).then(response => response.json())
+    })
+    .then(response => response.json())
     .then(responseJson => {
-      // alert(responseJson.length);
+      console.log('请求了')
       this.setState({
-        list:responseJson
+        list:[...this.state.list,...responseJson],
+        page:this.state.page++,
+        refreshing:false
       })
     })
     .catch(error => {
-      console.error(error);
+      // console.error(error);
     });
   }
-  
+
+  onRefresh= () => {
+    this.setState({
+      refreshing:true,
+      page:1
+    });
+    fetch("https://blog.sozxw.com/api/article/?page="+1,{
+      method:"GET",
+      mode:"cors",
+      headers:{
+        "Content-Type":"application/x-www-form-urlencoded"
+      }
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+      this.setState({
+        list:responseJson,
+        page:this.state.page++,
+        refreshing:false
+      });
+      Toast.success("刷新成功");
+    })
+    .catch(error => {
+      // console.error(error);
+    });
+  }
   render() {
     const {navigation} = this.props;
     return (
       <View style={styles.content}>
         <FlatList
+          // 渲染数据
           data={this.state.list}
+          // create key fn
+          keyExtractor={(item,index)=>item.id.toString()}
+
           renderItem={({item}) => (
-            <View style={styles.item}>
-                <Text style={styles.title}>{item.title}</Text>
-                <Image
-                  style={styles.authorHead}
-                  source={{uri: item.banner}}
-                />
-                <Text numberOfLines={3} style={styles.p}>{item.summary}</Text>
-                <View style={styles.bar}>
-                  <View style={styles.author}>
-                    <Text style={styles.barText}>作者：李征</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.barText}>访问量：{item.click}</Text>
-                  </View>
-                  <View>
-                    <Anticon name={"heart"} size={20} color="#1b9fe2"/>
+            <TouchableOpacity 
+              onPress={()=>{
+                navigation.navigate('Details',{
+                  id:item.id,
+                  collection:true,
+                  title:item.title
+                })
+              }}
+            >
+              <View 
+                style={styles.item}
+              >
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Image
+                    style={styles.authorHead}
+                    source={{uri: item.banner}}
+                    resizeMode="cover"
+                  />
+                  <Text numberOfLines={3} style={styles.p}>{item.summary}</Text>
+                  <View style={styles.bar}>
+                    <View>
+                      <Text style={styles.barText}>作者：李征</Text>
+                    </View>
+                    <View>
+                      <Text style={styles.barText}>访问量：{item.click}</Text>
+                    </View>
+                    <View style={styles.author}>
+                      <Anticon style={{marginRight:4,marginTop:2}} name={"like1"} size={14} color="#1b9fe2"/>
+                      <Text style={styles.barText}>{item.awesome}</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
           )}
+          // 下拉刷新
+          refreshing={this.state.refreshing}
+          onRefresh={this.onRefresh.bind(this)}
+          // 上拉加载
+          // onEndReached={()=>{
+          //   console.log('上拉了')
+          //   this.getArticle()
+          // }}
+          // onEndReachedThreshold={0.3}
         />
       </View>
     );
@@ -82,7 +127,7 @@ export default class Page3 extends React.Component {
 
 const styles = StyleSheet.create({
   content:{
-    flex: 1, 
+    height: '100%',
     paddingHorizontal:10,
     paddingVertical:6,
     backgroundColor:"#fff"
@@ -114,14 +159,13 @@ const styles = StyleSheet.create({
   },
   bar:{
     flexDirection: 'row',
-    fontSize:14,
-    lineHeight:20,
-    color:"#303133",
     justifyContent: 'space-between',
     marginTop:6
   },
   author:{
     flexDirection: 'row',
+    alignItems:"center",
+    // justifyContent:"center"
   },
   authorHead:{
     height:200
