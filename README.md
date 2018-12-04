@@ -7,7 +7,7 @@
 
 库名 | 描述 | 官网 | github
 ---|---|---|---
-react-navigation | 官方推荐路由 | https://reactnavigation.org/docs/zh-Hans/hello-react-navigation.html | https://github.com/react-navigation/react-navigation
+react-navigation | 官方推荐路由 | https://reactnavigation.org/docs/en/hello-react-navigation.html | https://github.com/react-navigation/react-navigation
 react-native-htmlview | 轻量显示html的组件 | 0 | https://github.com/jsdf/react-native-htmlview
 react-native-scrollable-tab-view | 滚动tab | 0 | https://github.com/ptomasroos/react-native-scrollable-tab-view
 react-native-vector-icons | icon | 0 | https://github.com/oblador/react-native-vector-icons
