@@ -12,12 +12,21 @@ const HomeNavigator = createStackNavigator({
     screen: DetailsScreen,
   },
 },{
+  // 初始化页面
   initialRouteName: 'Home',
   headerLayoutPreset:"center",
-  headerMode:"screen",
-  navigationOptions: {
-    gesturesEnabled: true,
-    gestureDirection: "inverted"
+  headerMode:"float",
+  headerTransitionPreset:"uikit",
+  navigationOptions: ({ navigation })=>{
+    let tabBarVisible = true;
+    if (navigation.state.index > 0) {
+      tabBarVisible = false;
+    }
+    return {
+      tabBarVisible,
+      gesturesEnabled: true,
+      gestureDirection: "inverted"
+    }
   },
   defaultNavigationOptions: {
     headerStyle: {
@@ -30,7 +39,7 @@ const HomeNavigator = createStackNavigator({
   },
   transitionConfig: () => ({
     transitionSpec: {
-      duration: 300,
+      duration: 280,
       easing: Easing.out(Easing.poly(4)),
       timing: Animated.timing,
     },
@@ -44,12 +53,12 @@ const HomeNavigator = createStackNavigator({
         outputRange: [width, 0, 0],
       });
 
-      const opacity = position.interpolate({
-        inputRange: [index - 1, index - 0.99, index],
-        outputRange: [0, 1, 1],
-      });
+      // const opacity = position.interpolate({
+      //   inputRange: [index - 1, index - 0.99, index],
+      //   outputRange: [0, 1, 1],
+      // });
 
-      return { opacity, transform: [{ translateX }] };
+      return { transform: [{ translateX }] };
     },
   }),
 });

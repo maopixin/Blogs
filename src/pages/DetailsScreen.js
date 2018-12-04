@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,WebView,ActivityIndicator } from 'react-native';
+import { View, Text,WebView,ActivityIndicator,SafeAreaView } from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import Entypoicon from 'react-native-vector-icons/Entypo'
 import {Toast} from 'teaset'
@@ -11,7 +11,10 @@ export default class DetailsScreen extends React.Component {
             // headerTintColor: '#1b9fe2',
             headerRight: (
                 <View style={{paddingRight:20,flex:1,flexDirection: 'row'}}>
-                    <Entypoicon style={{paddingRight:10}} name={'share'} size={20} color="#1b9fe2"
+                    <Entypoicon 
+                        style={{paddingRight:10}} 
+                        name={'share'} size={20} 
+                        color="#1b9fe2"
                         onPress={navigation.getParam('handleShare')}
                     />
                     <Anticon 
@@ -48,7 +51,7 @@ export default class DetailsScreen extends React.Component {
         // 第一个参数是属性名 第二个是默认自 如果获取的参数不存在 会返回第二个参数
         const id = navigation.getParam('id')
         return (
-            <View style={{width:"100%",height:"100%"}}>
+            <SafeAreaView style={{flex:1}}>
                 <WebView 
                     source={{uri:'https://blog.sozxw.com/mobile/a/'+id}}
                     style={{width:'100%',height:'100%'}}
@@ -57,7 +60,7 @@ export default class DetailsScreen extends React.Component {
                     injectedJavaScript={"document.getElementById('footer').style.display='none'"}
                     scalesPageToFit={false}
                 />
-            </View>
+            </SafeAreaView>
         );
     }  
 }

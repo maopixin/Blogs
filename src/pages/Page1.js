@@ -1,16 +1,11 @@
 import React from 'react';
-import { View, Text, Button ,StyleSheet} from 'react-native';
+import { View, Text, Button ,StyleSheet ,Platform ,StatusBar} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
-import { StackActions, NavigationActions } from 'react-navigation';
 import {Toast} from 'teaset'
 
 export default class Page1 extends React.Component {
   static navigationOptions = {
     title: '我的收藏',
-    // headerStyle: {
-    //   // backgroundColor: '#f4511e',
-    // },
-    // headerTintColor: '#1b9fe2',
     headerRight: (
       <View style={{paddingRight:20,}}>
         <Anticon name='search1' size={20} color="#1b9fe2"
@@ -21,6 +16,19 @@ export default class Page1 extends React.Component {
       </View>
     ),
   };
+  componentDidMount() {
+    this._navListener = this.props.navigation.addListener('didFocus', () => {
+      // 指定状态栏是否透明。设置为true(沉浸式)
+      if(Platform.OS == "android"){
+        StatusBar.setTranslucent(false);
+        StatusBar.setBackgroundColor('rgba(0,0,0,0.4)');
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._navListener.remove();
+  }
   render() {
     const {navigation} = this.props
     return (

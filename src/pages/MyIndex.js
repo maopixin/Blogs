@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button ,StyleSheet,Image ,StatusBar,TouchableOpacity,ScrollView} from 'react-native';
+import { View, Text, Button ,StyleSheet,Image ,StatusBar,TouchableOpacity,ScrollView,Platform} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import {Toast,ListRow,Label} from 'teaset'
 
@@ -68,14 +68,28 @@ export default class MyIndex extends React.Component {
       },
     ]
   }
+
+  componentDidMount() {
+    this._navListener = this.props.navigation.addListener('didFocus', () => {
+      if(Platform.OS == "android"){
+        StatusBar.setTranslucent(true); 
+        StatusBar.setBackgroundColor('transparent');
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this._navListener.remove();
+  }
+
   render() {
     const {navigation} = this.props
     return (
       <ScrollView style={{ flex: 1 ,backgroundColor:"#D4D6D6"}}>
-        <StatusBar
+        {/* <StatusBar
           backgroundColor={'transparent'}
           translucent={true}
-        />
+        /> */}
         <Image
           style={styles.bg}
           source={require('../assets/image/akm.jpeg')}

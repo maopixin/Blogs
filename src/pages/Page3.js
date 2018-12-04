@@ -1,25 +1,32 @@
 import React from 'react';
-import { View, Text ,StyleSheet ,FlatList,Image,TouchableOpacity} from 'react-native';
+import { View, Text ,StyleSheet ,FlatList,Image,TouchableOpacity,ActivityIndicator} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import {Toast} from 'teaset'
 
 export default class Page3 extends React.Component {
   constructor(props){
     super(props);
+    this.page = 1;
+    this.total = 1;
+    this._isMounted = false;
     this.state = {
       list:[],
-      page:1,
-      refreshing:true,
+      refreshing:false,
+      isLoading:false
     }
   }
 
   componentWillMount(){
+    this._isMounted = true;
+    console.log('第一次请求开始（组件挂载完成）')
     this.getArticle()
   }
 
-  getArticle = (page=this.state.page) => {
-    
-    fetch("https://blog.sozxw.com/api/article/?page="+page,{
+  getArticle = () => {
+    this.setState({
+      isLoading:true
+    })
+    fetch("https://blog.sozxw.com/api/article/?page="+this.page,{
       method:"GET",
       mode:"cors",
       headers:{
@@ -28,24 +35,30 @@ export default class Page3 extends React.Component {
     })
     .then(response => response.json())
     .then(responseJson => {
-      console.log('请求了')
+      console.log('得到数据')
+      this.page ++;
+      this.total = 17;
       this.setState({
         list:[...this.state.list,...responseJson],
-        page:this.state.page++,
-        refreshing:false
+        isLoading:false
+      },()=>{
+        console.log("重新渲染完成，现在有" + this.state.list.length + "数据")
       })
     })
     .catch(error => {
+      this.setState({
+        isLoading: false
+      })
       // console.error(error);
     });
   }
 
   onRefresh= () => {
+    this.page = 1;
     this.setState({
-      refreshing:true,
-      page:1
+      refreshing:true
     });
-    fetch("https://blog.sozxw.com/api/article/?page="+1,{
+    fetch("https://blog.sozxw.com/api/article/?page="+this.page,{
       method:"GET",
       mode:"cors",
       headers:{
@@ -54,9 +67,9 @@ export default class Page3 extends React.Component {
     })
     .then(response => response.json())
     .then(responseJson => {
+      this.page++ ;
       this.setState({
         list:responseJson,
-        page:this.state.page++,
         refreshing:false
       });
       Toast.success("刷新成功");
@@ -65,6 +78,31 @@ export default class Page3 extends React.Component {
       // console.error(error);
     });
   }
+  _hasMore = () => {
+		return this.state.list.length < this.total && this.total > 0
+	};
+
+  _renderFooter = () => {
+    if(this._hasMore()){
+      return (
+        <View>
+          <ActivityIndicator
+            size="small"
+            color="#1b9fe2"
+          />
+        </View>
+      )
+    }else{
+      return null
+    }
+  }
+
+  _loadMore = () => {
+    if (this._hasMore() && !this.state.isLoading) {
+			this.getArticle()
+		}
+  }
+
   render() {
     const {navigation} = this.props;
     return (
@@ -74,7 +112,7 @@ export default class Page3 extends React.Component {
           data={this.state.list}
           // create key fn
           keyExtractor={(item,index)=>item.id.toString()}
-
+          initialNumToRender = {2}
           renderItem={({item}) => (
             <TouchableOpacity 
               onPress={()=>{
@@ -114,11 +152,12 @@ export default class Page3 extends React.Component {
           refreshing={this.state.refreshing}
           onRefresh={this.onRefresh.bind(this)}
           // 上拉加载
-          // onEndReached={()=>{
-          //   console.log('上拉了')
-          //   this.getArticle()
-          // }}
-          // onEndReachedThreshold={0.3}
+          ListFooterComponent={this._renderFooter}
+          onEndReached={()=>{
+            console.log('触发了FlatList的上拉')
+            this._loadMore()
+          }}
+          onEndReachedThreshold={0.3}
         />
       </View>
     );
@@ -128,20 +167,18 @@ export default class Page3 extends React.Component {
 const styles = StyleSheet.create({
   content:{
     height: '100%',
-    paddingHorizontal:10,
-    paddingVertical:6,
-    backgroundColor:"#fff"
+    backgroundColor:"#EBEEF5",
   },
   item:{
     backgroundColor:"#ffffff",
-    paddingHorizontal:12,
-    paddingVertical:6,
     borderRadius:4,
+    marginHorizontal:4,
+    paddingHorizontal:10,
     shadowColor: '#ccc',
     shadowOffset: { width: 1, height: 1 }, 
     shadowOpacity: 0.8, 
     shadowRadius: 4, 
-    elevation: 10 ,
+    elevation: 2 ,
     marginBottom:6,
   },
   searchBtn:{
