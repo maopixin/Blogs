@@ -12,3 +12,12 @@ react-native-htmlview | 轻量显示html的组件 | 0 | https://github.com/jsdf/
 react-native-scrollable-tab-view | 滚动tab | 0 | https://github.com/ptomasroos/react-native-scrollable-tab-view
 react-native-vector-icons | icon | 0 | https://github.com/oblador/react-native-vector-icons
 teaset | 一款不错的ui库 | 0 | https://github.com/rilyu/teaset
+
+
+## 已完成功能
+
+- [x] 个人中心（静态）
+- [x] 技术心得（上拉加载，下拉刷新）
+- [x] 生活随笔（上拉加载）
+- [x] 博客详情
+- [ ] 我的收藏
