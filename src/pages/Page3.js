@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text ,StyleSheet ,FlatList,Image,TouchableOpacity,ActivityIndicator} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import {Toast} from 'teaset'
+import BottomLine from '../components/BottomLine'
+import BottomLoading from '../components/BottomLoading'
 
 export default class Page3 extends React.Component {
   constructor(props){
@@ -18,7 +20,6 @@ export default class Page3 extends React.Component {
 
   componentWillMount(){
     this._isMounted = true;
-    console.log('第一次请求开始（组件挂载完成）')
     this.getArticle()
   }
 
@@ -35,14 +36,11 @@ export default class Page3 extends React.Component {
     })
     .then(response => response.json())
     .then(responseJson => {
-      console.log('得到数据')
       this.page ++;
       this.total = 17;
       this.setState({
         list:[...this.state.list,...responseJson],
         isLoading:false
-      },()=>{
-        console.log("重新渲染完成，现在有" + this.state.list.length + "数据")
       })
     })
     .catch(error => {
@@ -85,15 +83,12 @@ export default class Page3 extends React.Component {
   _renderFooter = () => {
     if(this._hasMore()){
       return (
-        <View>
-          <ActivityIndicator
-            size="small"
-            color="#1b9fe2"
-          />
-        </View>
+        <BottomLoading/>
       )
     }else{
-      return null
+      return (
+        <BottomLine/>
+      )
     }
   }
 
@@ -112,7 +107,7 @@ export default class Page3 extends React.Component {
           data={this.state.list}
           // create key fn
           keyExtractor={(item,index)=>item.id.toString()}
-          initialNumToRender = {2}
+          // initialNumToRender = {2}
           renderItem={({item}) => (
             <TouchableOpacity 
               onPress={()=>{
@@ -153,10 +148,7 @@ export default class Page3 extends React.Component {
           onRefresh={this.onRefresh.bind(this)}
           // 上拉加载
           ListFooterComponent={this._renderFooter}
-          onEndReached={()=>{
-            console.log('触发了FlatList的上拉')
-            this._loadMore()
-          }}
+          onEndReached={this._loadMore}
           onEndReachedThreshold={0.3}
         />
       </View>

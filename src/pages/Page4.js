@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text ,StyleSheet ,FlatList,Image,TouchableOpacity} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import {Toast} from 'teaset'
+import BottomLine from '../components/BottomLine'
 
 export default class Page3 extends React.Component {
   constructor(props){
@@ -109,6 +110,7 @@ export default class Page3 extends React.Component {
           // 下拉刷新
           refreshing={this.state.refreshing}
           onRefresh={this.onRefresh.bind(this)}
+          ListFooterComponent={<BottomLine/>}
           // 上拉加载
           // onEndReached={()=>{
           //   console.log('上拉了')
