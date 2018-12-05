@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     borderRadius:4,
     marginHorizontal:4,
     paddingHorizontal:10,
+    paddingVertical:10,
     shadowColor: '#ccc',
     shadowOffset: { width: 1, height: 1 }, 
     shadowOpacity: 0.8, 

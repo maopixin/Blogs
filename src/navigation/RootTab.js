@@ -37,7 +37,7 @@ const TabNavigator = createBottomTabNavigator({
             if (routeName === 'Home') {
                 tabName = "首页";
             } else if (routeName === 'Page1') {
-                tabName = `收藏`;
+                tabName = `音乐`;
             } else if (routeName === 'My') {
                 tabName = `我的`;
             }

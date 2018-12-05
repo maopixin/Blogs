@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button ,StyleSheet,Image ,StatusBar,TouchableOpacity,ScrollView,Platform} from 'react-native';
+import { View, Text, Button ,StyleSheet,Image ,StatusBar,TextInput,ScrollView,Platform} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import {Toast,ListRow,Label} from 'teaset'
 
@@ -154,7 +154,6 @@ export default class MyIndex extends React.Component {
             </View>
           </View>
         </View>
-        
         <View>
           <ListRow
             title="动态"

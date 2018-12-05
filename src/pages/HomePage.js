@@ -7,14 +7,16 @@ import {Toast} from 'teaset'
 import Page3 from './Page3'
 import Page4 from './Page4'
 
+const isAndroid = Platform.OS == "android"
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: '首页',
     tabBarLabel:"首页",
     navBarHidden: true,
-    headerStyle:{
-      
-    },
+    headerStyle:isAndroid?{
+      borderBottomWidth:1,
+      borderBottomColor:"rgba(0,0,0,0.2)",
+    }:{},
     headerRight: (
       <View style={{paddingRight:20,}}>
         <Anticon name='search1' size={20} color="#1b9fe2"
@@ -29,7 +31,7 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     this._navListener = this.props.navigation.addListener('didFocus', () => {
       // 指定状态栏是否透明。设置为true(沉浸式)
-      if(Platform.OS == "android"){
+      if(isAndroid){
         StatusBar.setTranslucent(false);
         StatusBar.setBackgroundColor('rgba(0,0,0,0.4)');
       }

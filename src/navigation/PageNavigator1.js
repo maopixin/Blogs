@@ -1,22 +1,15 @@
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
-import Page1 from '../pages/Page1'
-
+import RankingList from '../pages/RankingList'
+import MusicList from '../pages/MusicList'
 
 
 const PageNavigator1 = createStackNavigator({
   Page1: {
-    screen: Page1,
+    screen: RankingList,
   },
-}, {
-    defaultNavigationOptions: {
-      headerStyle: {
-        // backgroundColor: '#f4511e',
-      },
-      headerTintColor: '#1b9fe2',
-      headerTitleStyle: {
-        // fontWeight: 'bold',
-      },
-    },
+  MusicList:{
+    screen:MusicList
+  }
 });
 
 export default PageNavigator1;

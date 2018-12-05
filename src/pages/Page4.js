@@ -126,20 +126,14 @@ export default class Page3 extends React.Component {
 const styles = StyleSheet.create({
   content:{
     height: '100%',
-    paddingHorizontal:10,
-    paddingVertical:6,
-    backgroundColor:"#fff"
+    backgroundColor:"#EBEEF5"
   },
   item:{
     backgroundColor:"#ffffff",
     paddingHorizontal:12,
-    paddingVertical:6,
+    marginHorizontal:4,
+    paddingVertical:10,
     borderRadius:4,
-    shadowColor: '#ccc',
-    shadowOffset: { width: 1, height: 1 }, 
-    shadowOpacity: 0.8, 
-    shadowRadius: 4, 
-    elevation: 10 ,
     marginBottom:6,
   },
   searchBtn:{
