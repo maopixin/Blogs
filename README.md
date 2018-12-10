@@ -1,4 +1,9 @@
 ## 博客APP
+![image](	https://img.shields.io/appveyor/ci/gruntjs/grunt.svg)
+![image](https://camo.githubusercontent.com/9a140a4c68e7c178bc660bee7675f4f25ff7ade3/68747470733a2f2f696d672e736869656c64732e696f2f6e706d2f6c2f7675652e737667)
+[![image](https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2%E5%9B%AD-%E5%8D%81%E5%B9%B4%E9%9B%AA%E8%90%BD-blue.svg)](https://www.cnblogs.com/maopixin/)
+
+
 
 初次接触rn写的一个demo
 
