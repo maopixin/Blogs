@@ -4,6 +4,7 @@ import { Slider } from 'react-native-elements'
 import { BackImg } from "../assets/js/ImgConfig";
 import SideBar from "../components/SideBar";
 import { demo } from "../service/api";
+import {SafeAreaView} from "react-navigation"
 import Video from 'react-native-video';
 import { screenW } from "../utils";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -11,7 +12,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 export default class MusicPlayer extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
-      header: null
+      header: null,
     }
   }
 
@@ -131,40 +132,42 @@ export default class MusicPlayer extends React.Component {
     const { title, picUrl, mp3, bgColor, pause, rotateValue } = this.state;
 
     return (
-      <View style={styles.container}>
-        <Video
-          source={{uri: mp3}}
-          ref='video'
-          volume={1.0}
-          paused={pause}
-          onProgress={(e) => this.onProgress(e)}
-          onLoad={(e) => this.onLoad(e)}
-          playInBackground={true}/>
-        <SideBar
-          backgroundColor={bgColor}
-          title={title}
-          leftImg={BackImg}
-          onLeftPress={() => this.props.navigation.goBack()} />
-        <View style={styles.recordContainer}>
-          <View style={styles.recordWrapContainer}>
-            <Animated.Image source={{uri: picUrl}}
-              style={[
-                styles.record,
-                { 
-                  transform: [{
-                    rotateZ: rotateValue.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: ['0deg', '360deg'],
-                    })
-                  }]
-                }
-              ]}>
-            </Animated.Image>
+      <SafeAreaView style={[styles.container,{backgroundColor:bgColor}]}>
+        <View style={{backgroundColor:"#363636",flex:1}}>
+          <Video
+            source={{uri: mp3}}
+            ref='video'
+            volume={1.0}
+            paused={pause}
+            onProgress={(e) => this.onProgress(e)}
+            onLoad={(e) => this.onLoad(e)}
+            playInBackground={true}/>
+          <SideBar
+            backgroundColor={bgColor}
+            title={title}
+            leftImg={BackImg}
+            onLeftPress={() => this.props.navigation.goBack()} />
+          <View style={styles.recordContainer}>
+            <View style={styles.recordWrapContainer}>
+              <Animated.Image source={{uri: picUrl}}
+                style={[
+                  styles.record,
+                  { 
+                    transform: [{
+                      rotateZ: rotateValue.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: ['0deg', '360deg'],
+                      })
+                    }]
+                  }
+                ]}>
+              </Animated.Image>
+            </View>
           </View>
+          <View style={styles.emptyContainer} />
+          {this.renderPlay()}
         </View>
-        <View style={styles.emptyContainer} />
-        {this.renderPlay()}
-      </View>
+      </SafeAreaView>
     );
   }
 }
@@ -172,13 +175,12 @@ export default class MusicPlayer extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#363636',
     flexDirection: 'column'
   },
   recordContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   recordWrapContainer: {
     width: 280,

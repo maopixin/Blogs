@@ -1,6 +1,8 @@
 package com.mpx;
 
 import com.facebook.react.ReactActivity;
+import android.os.Bundle;  //add 
+import org.devio.rn.splashscreen.SplashScreen; //add
 // add start （react-native-gesture-handler）
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
@@ -27,4 +29,9 @@ public class MainActivity extends ReactActivity {
         };
     }
     // add end
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this);   //add
+        super.onCreate(savedInstanceState);
+    }
 }

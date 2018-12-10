@@ -7,13 +7,13 @@ const isAndroid = Platform.OS == "android"
 export default class RankingList extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
-      header: null
+      header: null,
+      tabBarVisible:true
     }
   }
 
   constructor(props) {
     super(props);
-
     this.state = {
       title: '排行榜',
       bgColor: '#C60D0D',
@@ -21,20 +21,9 @@ export default class RankingList extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this._navListener = this.props.navigation.addListener('didFocus', () => {
-      // 指定状态栏是否透明。设置为true(沉浸式)
-      if(isAndroid){
-        StatusBar.setTranslucent(false);
-        StatusBar.setBackgroundColor(this.state.bgColor);
-      }
-    });
+  componentWillMount() {
     this.HttpMusic  = new HttpMusicManager();
     this.getRankingList()
-  }
-
-  componentWillUnmount() {
-    this._navListener.remove();
   }
 
   getRankingList = () => {
@@ -85,10 +74,10 @@ export default class RankingList extends React.Component {
 
     return (
       <SafeAreaView style={[styles.container,{backgroundColor:bgColor}]}>
-        <StatusBar backgroundColor={bgColor} />
         <SideBar
           backgroundColor={bgColor}
-          title={title}/>
+          title={title}
+        />
         <FlatList
           data={rankingList}
           style={{backgroundColor:"#fff",flex:1}}

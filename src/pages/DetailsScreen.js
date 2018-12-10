@@ -1,14 +1,21 @@
 import React from 'react';
-import { View, Text,WebView,ActivityIndicator,SafeAreaView } from 'react-native';
+import { View, Text,WebView,ActivityIndicator,SafeAreaView ,Platform ,StatusBar} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import Entypoicon from 'react-native-vector-icons/Entypo'
 import {Toast} from 'teaset'
+
+const isAndroid = Platform.OS == "android"
 
 export default class DetailsScreen extends React.Component {
     static navigationOptions = ({navigation})=>{
         return {
             title: navigation.getParam('title'),
             // headerTintColor: '#1b9fe2',
+            headerStyle:isAndroid?{
+                borderBottomWidth:1,
+                borderBottomColor:"rgba(0,0,0,0.2)",
+                marginTop:StatusBar.currentHeight
+            }:{},
             headerRight: (
                 <View style={{paddingRight:20,flex:1,flexDirection: 'row'}}>
                     <Entypoicon 

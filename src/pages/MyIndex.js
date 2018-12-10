@@ -1,13 +1,12 @@
 import React from 'react';
-import { View, Text, Button ,StyleSheet,Image ,StatusBar,TextInput,ScrollView,Platform} from 'react-native';
+import { View, Text ,StyleSheet,Image ,StatusBar,TextInput,ScrollView,Platform,AsyncStorage} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
-import {Toast,ListRow,Label} from 'teaset'
+import {Toast,ListRow,Label,Button} from 'teaset'
 
 export default class MyIndex extends React.Component {
   static navigationOptions = {
-    tabBarComponent: () => null,
-    // 隐藏当前状态栏
-    headerTransparent:true
+    header: null,
+    tabBarVisible:false
   };
   state = {
     rows:[
@@ -66,30 +65,33 @@ export default class MyIndex extends React.Component {
         icon:require("../assets/image/ss.png"),
         detail:"200"
       },
-    ]
+    ],
+    login:null
+  };
+  componentWillMount(){
+    this.getData("LOGIN").then((login)=>{
+      this.setState({
+        login
+      })
+    })
   }
-
-  componentDidMount() {
-    this._navListener = this.props.navigation.addListener('didFocus', () => {
-      if(Platform.OS == "android"){
-        StatusBar.setTranslucent(true); 
-        StatusBar.setBackgroundColor('transparent');
-      }
+  getData(key) {
+    return AsyncStorage.getItem(key).then((value) => {
+      const jsonValue = JSON.parse(value);
+      return jsonValue;
     });
   }
-
-  componentWillUnmount() {
-    this._navListener.remove();
+  _removeData = async (key,val) => {
+    try {
+      await AsyncStorage.removeItem(key,val);
+    } catch (error) {
+      // Error saving data
+    }
   }
-
   render() {
     const {navigation} = this.props
     return (
       <ScrollView style={{ flex: 1 ,backgroundColor:"#D4D6D6"}}>
-        {/* <StatusBar
-          backgroundColor={'transparent'}
-          translucent={true}
-        /> */}
         <Image
           style={styles.bg}
           source={require('../assets/image/akm.jpeg')}
@@ -111,48 +113,66 @@ export default class MyIndex extends React.Component {
               <Anticon name="doubleright" size={10} color="#C0C4CC"/>
             </View>
           </View>
-          <View style={styles.userInfo}>
-            <Image
-              style={styles.head}
-              source={require('../assets/image/head.jpeg')}
-            />
-            <View style={styles.userName}>
-              <Text style={styles.name}>十年雪落</Text>
-              <View style={[styles.sex,{backgroundColor:"#1b9fe2"}]}>
-                <Anticon name={"man"} size={10} color="#ffffff"/>
+          {
+            this.state.login
+            ?
+            (
+              <View style={styles.userInfo}>
+                <Image
+                  style={styles.head}
+                  source={require('../assets/image/head.jpeg')}
+                />
+                <View style={styles.userName}>
+                  <Text style={styles.name}>十年雪落</Text>
+                  <View style={[styles.sex,{backgroundColor:"#1b9fe2"}]}>
+                    <Anticon name={"man"} size={10} color="#ffffff"/>
+                  </View>
+                  <View style={[styles.sex,{backgroundColor:"rgb(249,204,226)"}]}>
+                    <Anticon name={"woman"} size={10} color="#ffffff"/>
+                  </View>
+                </View>
+                <Text style={{fontSize:10,color:"#FFFFFF",paddingLeft:6}}>ID:3870584</Text>
+                <View style={styles.autograph}>
+                  <Text style={{fontSize:12,color:"#ffffff"}}>我是AKM,想成为哒哒哒冒蓝火的加特林</Text>
+                  <Anticon 
+                    name="edit" 
+                    size={12} 
+                    color="#fff" 
+                    style={{marginTop:2}}
+                    onPress={()=>{
+                      Toast.sad('别乱摸，还不能修改呢');
+                    }}
+                  />
+                </View>
+                <View style={styles.txts}>
+                  <View style={styles.txt}>
+                    <Text style={{fontSize:16,color:"#fff",marginRight:4}}>998</Text>
+                    <Text style={{fontSize:12,color:"#fff"}}>获赞</Text>
+                  </View>
+                  <View style={styles.txt}>
+                    <Text style={{fontSize:16,color:"#fff",marginRight:4}}>3</Text>
+                    <Text style={{fontSize:12,color:"#fff"}}>关注</Text>
+                  </View>
+                  <View style={styles.txt}>
+                    <Text style={{fontSize:16,color:"#fff",marginRight:4}}>1280</Text>
+                    <Text style={{fontSize:12,color:"#fff"}}>粉丝</Text>
+                  </View>
+                </View>
               </View>
-              <View style={[styles.sex,{backgroundColor:"rgb(249,204,226)"}]}>
-                <Anticon name={"woman"} size={10} color="#ffffff"/>
+            )
+            :
+            (
+              <View style={{position:"absolute",left:20,bottom:20}}>
+                <Button
+                  type="primary"
+                  title="登录"
+                  onPress={()=>{
+                    this.props.navigation.navigate("Login")
+                  }}
+                />
               </View>
-            </View>
-            <Text style={{fontSize:10,color:"#FFFFFF",paddingLeft:6}}>ID:3870584</Text>
-            <View style={styles.autograph}>
-              <Text style={{fontSize:12,color:"#ffffff"}}>我是AKM,想成为哒哒哒冒蓝火的加特林</Text>
-              <Anticon 
-                name="edit" 
-                size={12} 
-                color="#fff" 
-                style={{marginTop:2}}
-                onPress={()=>{
-                  Toast.sad('别乱摸，还不能修改呢');
-                }}
-              />
-            </View>
-            <View style={styles.txts}>
-              <View style={styles.txt}>
-                <Text style={{fontSize:16,color:"#fff",marginRight:4}}>998</Text>
-                <Text style={{fontSize:12,color:"#fff"}}>获赞</Text>
-              </View>
-              <View style={styles.txt}>
-                <Text style={{fontSize:16,color:"#fff",marginRight:4}}>3</Text>
-                <Text style={{fontSize:12,color:"#fff"}}>关注</Text>
-              </View>
-              <View style={styles.txt}>
-                <Text style={{fontSize:16,color:"#fff",marginRight:4}}>1280</Text>
-                <Text style={{fontSize:12,color:"#fff"}}>粉丝</Text>
-              </View>
-            </View>
-          </View>
+            )
+          }
         </View>
         <View>
           <ListRow
@@ -205,6 +225,28 @@ export default class MyIndex extends React.Component {
             })
           }
         </View>
+        {
+          this.state.login
+          ?
+          (
+            <View style={{alignItems:"center",backgroundColor:"#fff",paddingVertical:20}}>
+              <Button
+                type="primary"
+                title="退出登录"
+                onPress={()=>{
+                  this._removeData("LOGIN");
+                  this.setState({
+                    login:null
+                  })
+                }}
+              />
+            </View>
+          )
+          :
+          (
+            <View></View>
+          )
+        }
       </ScrollView>
     );
   }  

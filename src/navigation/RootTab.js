@@ -1,4 +1,4 @@
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 import React from 'react'
 import {Text} from 'react-native'
 import AntIcon from 'react-native-vector-icons/AntDesign'
@@ -25,7 +25,7 @@ const TabNavigator = createBottomTabNavigator({
             if (routeName === 'Home') {
               iconName = "home";
             } else if (routeName === 'Page1') {
-              iconName = `hearto`;
+              iconName = `customerservice`;
             } else if (routeName === 'My') {
                 iconName = `user`;
             }
@@ -50,4 +50,4 @@ const TabNavigator = createBottomTabNavigator({
     })
 })
 
-export default createAppContainer(TabNavigator)
+export default TabNavigator

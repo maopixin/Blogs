@@ -5,7 +5,7 @@ import DetailsScreen from '../pages/DetailsScreen'
 
 
 const HomeNavigator = createStackNavigator({
-  Home: {
+  HomeIndex: {
     screen: HomePage,
   },
   Details: {
@@ -13,7 +13,7 @@ const HomeNavigator = createStackNavigator({
   },
 },{
   // 初始化页面
-  initialRouteName: 'Home',
+  initialRouteName: 'HomeIndex',
   headerLayoutPreset:"center",
   headerMode:"float",
   headerTransitionPreset:"uikit",

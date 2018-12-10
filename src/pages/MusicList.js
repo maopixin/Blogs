@@ -8,7 +8,8 @@ import HttpMusicManager from "../service";
 export default class MusicList extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
-      header: null
+      header: null,
+      tabBarVisible:false
     }
   }
 
@@ -51,7 +52,10 @@ export default class MusicList extends React.Component {
 
     return <TouchableOpacity
         activeOpacity={1}
-        onPress={() => this.props.navigation.navigate('MusicPlayer', {id: item.id, name: item.name, picUrl: item.al.picUrl})}
+        onPress={() => {
+          console.log(item)
+          this.props.navigation.navigate('MusicPlayer', {id: item.id, name: item.name, picUrl: item.al.picUrl})
+        }}
         style={{height: 50}}>
       <View style={styles.container}>
         <View style={styles.numContainer}>

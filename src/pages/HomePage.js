@@ -1,8 +1,9 @@
 import React from 'react';
-import { View ,StyleSheet ,StatusBar ,Platform} from 'react-native';
+import { View ,StyleSheet ,StatusBar ,Platform,BackHandler,ToastAndroid} from 'react-native';
 import Anticon from 'react-native-vector-icons/AntDesign'
 import ScrollableTabView  from 'react-native-scrollable-tab-view';
 import FacebookTabBar from '../components/FacebookTabBar'
+import SplashScreen from 'react-native-splash-screen'
 import {Toast} from 'teaset'
 import Page3 from './Page3'
 import Page4 from './Page4'
@@ -11,11 +12,10 @@ const isAndroid = Platform.OS == "android"
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: '首页',
-    tabBarLabel:"首页",
-    navBarHidden: true,
     headerStyle:isAndroid?{
       borderBottomWidth:1,
       borderBottomColor:"rgba(0,0,0,0.2)",
+      marginTop:StatusBar.currentHeight
     }:{},
     headerRight: (
       <View style={{paddingRight:20,}}>
@@ -28,21 +28,44 @@ export default class HomeScreen extends React.Component {
     ),
   };
 
+  componentWillMount() {
+    // 隐藏启动图
+    SplashScreen.hide();
+  }
   componentDidMount() {
-    this._navListener = this.props.navigation.addListener('didFocus', () => {
-      // 指定状态栏是否透明。设置为true(沉浸式)
-      if(isAndroid){
-        StatusBar.setTranslucent(false);
-        StatusBar.setBackgroundColor('rgba(0,0,0,0.4)');
-      }
-    });
+    if(isAndroid){
+      this._willBlur = this.props.navigation.addListener(
+        
+        'willBlur',
+        payload => {
+          this.backHandler.remove()
+        }
+      );
+      this._didFocus = this.props.navigation.addListener(
+        'didFocus',
+        payload => {
+          this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+              //最近2秒内按过back键，可以退出应用。
+              BackHandler.exitApp();
+              return false;
+            }
+            this.lastBackPressed = Date.now();
+            ToastAndroid.show('再按一次退出博客', ToastAndroid.SHORT);
+            return true;
+          });
+        }
+      );
+    }
   }
 
   componentWillUnmount() {
-    this._navListener.remove();
+    this._didFocus.remove()
+    this._willBlur.remove()
   }
   render() {
     const {navigation} = this.props
+    console.log(this.props)
     return (
       <View style={{flex:1}}>
         <ScrollableTabView
