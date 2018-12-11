@@ -68,17 +68,27 @@ export default class MyIndex extends React.Component {
     ],
     login:null
   };
-  componentWillMount(){
-    this.getData("LOGIN").then((login)=>{
-      this.setState({
-        login
-      })
-    })
+  
+  componentDidMount() {
+    this._didFocus = this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        this.getData("userName").then((login)=>{
+          console.log(login)
+          this.setState({
+            login
+          })
+        })
+      }
+    );
+  }
+  componentWillUnmount() {
+    this._didFocus.remove()
   }
   getData(key) {
     return AsyncStorage.getItem(key).then((value) => {
-      const jsonValue = JSON.parse(value);
-      return jsonValue;
+      console.log(value)
+      return value;
     });
   }
   _removeData = async (key,val) => {
@@ -104,8 +114,8 @@ export default class MyIndex extends React.Component {
                 size={15}
                 color="#fff"
                 onPress={()=>{
-                  Toast.message("设置暂未开发")}
-                }
+                  this.props.navigation.navigate("Set");
+                }}
               />
             </View>
             <View style={styles.zone}>
@@ -234,7 +244,7 @@ export default class MyIndex extends React.Component {
                 type="primary"
                 title="退出登录"
                 onPress={()=>{
-                  this._removeData("LOGIN");
+                  this._removeData("userName");
                   this.setState({
                     login:null
                   })

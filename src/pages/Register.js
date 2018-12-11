@@ -12,15 +12,17 @@ export default class Register extends React.Component {
   state = {
     bgColor:"#1b9fe2",
     title:"注册",
-    userName:"",
-    passWord:""
+    userName:"name",
+    passWord:"word"
   }
-  _storeData = async (key,val,err) => {
-    try {
-      await AsyncStorage.setItem(key,val);
-    } catch (error) {
-      err&&err(error)
-    }
+  componentDidMount(){
+    AsyncStorage.removeItem("USERS",(error,result)=>{
+      if(error){
+        alert("clear err")
+      }else{
+        console.log(result)
+      }
+    })
   }
   Register(){
     const {userName,passWord} = this.state
@@ -31,12 +33,7 @@ export default class Register extends React.Component {
       Toast.sad('您还没有输入密码');
       return false;
     }
-    this._storeData("USERS",JSON.stringify({userName,passWord})).then((d)=>{
-      Toast.success('注册成功');
-      setTimeout(()=>{
-        this.props.navigation.goBack()
-      },500)
-    })
+    Toast.smile('注册成功');
   }
   render() {
     const {userName,passWord,title} = this.state

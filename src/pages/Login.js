@@ -1,10 +1,9 @@
 import React from 'react'
-import {View,Text,StyleSheet,TouchableOpacity,Dimensions,TextInput} from 'react-native'
-import {SafeAreaView} from 'react-navigation'
+import {View,Text,StyleSheet,Dimensions,TextInput,AsyncStorage} from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 import LoginSide from '../components/LoginSlide'
-import {Button} from 'teaset'
-const { width, height } = Dimensions.get('window');
+import {Button,Toast} from 'teaset'
+const { width } = Dimensions.get('window');
 export default class Login extends React.Component {
   static navigationOptions = {
     header: null,
@@ -13,10 +12,30 @@ export default class Login extends React.Component {
   state = {
     bgColor:"#1b9fe2",
     title:"登录",
-
+    userName:"",
+    passWord:""
+  }
+  login = () => {
+    const {userName,passWord} = this.state;
+    if(userName==""){
+      Toast.message('未填写账号');
+      return false;
+    };
+    if(passWord==""){
+      Toast.message('未填写密码');
+      return false;
+    }
+    AsyncStorage.multiSet([["userName",userName],["passWord",passWord]],(error)=>{
+      if(error){
+        Toast.message('登录失败');
+      }else{
+        Toast.message('登录成功');
+        this.props.navigation.navigate("My");
+      }
+    })
   }
   render() {
-    const {bgColor,title} = this.state
+    const {bgColor,title,userName,passWord} = this.state
     return (
       <View style={styles.page}>
         <LoginSide
@@ -32,17 +51,30 @@ export default class Login extends React.Component {
             placeholder="账号/手机号/邮箱"
             underlineColorAndroid='transparent'
             maxLength={20}
+            value={userName}
+            onChangeText={(text)=>{
+              this.setState({
+                userName:text
+              })
+            }}
           />
           <TextInput 
             style={styles.input} placeholder="密码"
             underlineColorAndroid='transparent'
             maxLength={16}
             secureTextEntry={true}
+            value={passWord}
+            onChangeText={(text)=>{
+              this.setState({
+                passWord:text
+              })
+            }}
           />
           <Button 
             type="secondary"
             title="登   录"
             style={styles.button}
+            onPress={this.login}
           />
         </View>
 

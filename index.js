@@ -1,5 +1,4 @@
-import { AppRegistry,NetInfo ,StatusBar ,Platform ,YellowBox} from 'react-native';
-// import App from './App';
+import { AppRegistry ,StatusBar ,Platform ,YellowBox} from 'react-native';
 import Root from './src/navigation/Root'
 
 const isAndroid = Platform.OS==="android"
@@ -11,6 +10,7 @@ if(isAndroid){
     StatusBar.setTranslucent(true)
     StatusBar.setBarStyle("dark-content")
 };
-
+// 监听网络变化
+import './src/assets/js/NetInfoListen'
 
 AppRegistry.registerComponent('mpx', () => Root);
