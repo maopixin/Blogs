@@ -34,6 +34,9 @@ react-native-htmlview | 轻量显示html的组件 | 0 | https://github.com/jsdf/
 react-native-scrollable-tab-view | 滚动tab | 0 | https://github.com/ptomasroos/react-native-scrollable-tab-view
 react-native-vector-icons | icon | 0 | https://github.com/oblador/react-native-vector-icons
 teaset | 一款不错的ui库 | 0 | https://github.com/rilyu/teaset
+react-native-sound | 播放本地或者网络音频文件 | 0 | https://github.com/zmxv/react-native-sound
+react-native-splash-screen | APP启动图 | 0 | https://github.com/crazycodeboy/react-native-splash-screen
+react-native-video | 播放视频或者音频 | 0 | https://github.com/react-native-community/react-native-video
 
 
 ## 已完成功能
@@ -48,6 +51,8 @@ teaset | 一款不错的ui库 | 0 | https://github.com/rilyu/teaset
 - [x] 注册 (无接口支持仅静态)
 - [x] 登录 (无接口支持仅静态)
 - [x] 监测网络变化
-- [x] 设置
+- [x] 设置(伪)
+- [x] 测试震动
+- [x] 测试提示声（本地及网络文件）
 
 
