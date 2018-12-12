@@ -1,5 +1,5 @@
 import React from 'react'
-import {View,Text,Vibration,Platform} from 'react-native'
+import {View,Text,Vibration,Picker} from 'react-native'
 import Sound from 'react-native-sound';
 import Funny from '../assets/voice/funny.mp3'
 import { BackImg } from "../assets/js/ImgConfig"
