@@ -59,7 +59,9 @@ class Set extends React.Component {
           />
           <ListRow title='点我震动' detail="" accessory="auto"
             onPress={()=>{
-              Vibration.vibrate([0,100,100,100])
+              if(messageVibration){
+                Vibration.vibrate([0,100,100,100])
+              }
             }}
           />
           <ListRow
