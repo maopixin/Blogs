@@ -1,6 +1,6 @@
 import { AppRegistry ,StatusBar ,Platform ,YellowBox} from 'react-native';
 import Root from './src/navigation/Root'
-
+import App from './App'
 const isAndroid = Platform.OS==="android"
 // 出现此错误提示的原因是源代码内有已被React舍弃的代码，但此并不影响程序运行。
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
@@ -13,4 +13,4 @@ if(isAndroid){
 // 监听网络变化
 import './src/assets/js/NetInfoListen'
 
-AppRegistry.registerComponent('mpx', () => Root);
+AppRegistry.registerComponent('mpx', () => App);
