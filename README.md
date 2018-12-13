@@ -40,7 +40,7 @@ react-native-video | 播放视频或者音频 | 0 | https://github.com/react-nat
 
 
 ## 已完成功能
-
+- [x] 集成redux以及redux-thunk中间件
 - [x] 个人中心（静态）
 - [x] 技术心得（上拉加载，下拉刷新）
 - [x] 生活随笔（上拉加载）
