@@ -20,7 +20,7 @@ export default class Register extends React.Component {
       if(error){
         alert("clear err")
       }else{
-        console.log(result)
+
       }
     })
   }

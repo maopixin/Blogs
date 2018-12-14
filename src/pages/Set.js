@@ -17,7 +17,6 @@ class Set extends React.Component {
     tabBarVisible:false
   };
   render() {
-    console.log(this.props)
     const {
       messageVibration,
       messageVoice,
@@ -117,7 +116,6 @@ class Set extends React.Component {
 
 // mapStateToProps：将state映射到组件的props中
 const mapStateToProps = (state) => {
-  console.log(state,123)
   return {
     messageVoice: state.messageVoice,
     messageVibration: state.messageVibration

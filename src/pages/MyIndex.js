@@ -74,7 +74,6 @@ export default class MyIndex extends React.Component {
       'didFocus',
       payload => {
         this.getData("userName").then((login)=>{
-          console.log(login)
           this.setState({
             login
           })
@@ -87,7 +86,6 @@ export default class MyIndex extends React.Component {
   }
   getData(key) {
     return AsyncStorage.getItem(key).then((value) => {
-      console.log(value)
       return value;
     });
   }

@@ -113,7 +113,6 @@ export default class Page3 extends React.Component {
           ListFooterComponent={<BottomLine/>}
           // 上拉加载
           // onEndReached={()=>{
-          //   console.log('上拉了')
           //   this.getArticle()
           // }}
           // onEndReachedThreshold={0.3}

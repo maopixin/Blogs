@@ -53,7 +53,6 @@ export default class MusicList extends React.Component {
     return <TouchableOpacity
         activeOpacity={1}
         onPress={() => {
-          console.log(item)
           this.props.navigation.navigate('MusicPlayer', {id: item.id, name: item.name, picUrl: item.al.picUrl})
         }}
         style={{height: 50}}>
