@@ -28,7 +28,7 @@ react-native run-android
 注意：请不要随意使用最新版第三方包，说不定你就会遇到无可预期的bug
 
 库名 | 描述 | 版本
----|---|---|---
+---|---|---
 react-native | 主角 | [![image](https://img.shields.io/badge/npm-v0.55.4-blue.svg)](https://github.com/facebook/react-native) 
 react-navigation | 官方推荐路由 | [![image](https://img.shields.io/badge/npm-v3.0.2-blue.svg)](https://github.com/react-navigation/react-navigation)
 react-native-htmlview | 轻量显示html的组件 | [![image](https://img.shields.io/badge/npm-v0.13.0-blue.svg)](https://github.com/jsdf/react-native-htmlview) 
