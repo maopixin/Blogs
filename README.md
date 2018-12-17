@@ -27,16 +27,18 @@ react-native run-android
 
 注意：请不要随意使用最新版第三方包，说不定你就会遇到无可预期的bug
 
-库名 | 描述 | 官网 | github
+库名 | 描述 | 版本
 ---|---|---|---
-react-navigation | 官方推荐路由 | https://reactnavigation.org/docs/zh-Hans/hello-react-navigation.html | https://github.com/react-navigation/react-navigation
-react-native-htmlview | 轻量显示html的组件 | 0 | https://github.com/jsdf/react-native-htmlview
-react-native-scrollable-tab-view | 滚动tab | 0 | https://github.com/ptomasroos/react-native-scrollable-tab-view
-react-native-vector-icons | icon | 0 | https://github.com/oblador/react-native-vector-icons
-teaset | 一款不错的ui库 | 0 | https://github.com/rilyu/teaset
-react-native-sound | 播放本地或者网络音频文件 | 0 | https://github.com/zmxv/react-native-sound
-react-native-splash-screen | APP启动图 | 0 | https://github.com/crazycodeboy/react-native-splash-screen
-react-native-video | 播放视频或者音频 | 0 | https://github.com/react-native-community/react-native-video
+react-native | 主角 | [![image](https://img.shields.io/badge/npm-v0.55.4-blue.svg)](https://github.com/facebook/react-native) 
+react-navigation | 官方推荐路由 | [![image](https://img.shields.io/badge/npm-v3.0.2-blue.svg)](https://github.com/react-navigation/react-navigation)
+react-native-htmlview | 轻量显示html的组件 | [![image](https://img.shields.io/badge/npm-v0.13.0-blue.svg)](https://github.com/jsdf/react-native-htmlview) 
+react-native-scrollable-tab-view | 滚动tab | [![image](https://img.shields.io/badge/npm-v0.10.0-blue.svg)](https://github.com/ptomasroos/react-native-scrollable-tab-view) 
+react-native-vector-icons | icon | [![image](https://img.shields.io/badge/npm-v6.1.0-blue.svg)](https://github.com/oblador/react-native-vector-icons)  
+teaset | 一款不错的ui库 | [![image](https://img.shields.io/badge/npm-v0.5.10-blue.svg)](https://github.com/rilyu/teaset) 
+react-native-sound | 播放本地或者网络音频文件 | [![image](https://img.shields.io/badge/npm-v0.10.9-blue.svg)](https://github.com/zmxv/react-native-sound)  
+react-native-splash-screen | APP启动图 | [![image](https://img.shields.io/badge/npm-v3.0.9-blue.svg)](https://github.com/crazycodeboy/react-native-splash-screen)   
+react-native-video | 播放视频或者音频 | [![image](https://img.shields.io/badge/npm-v3.2.1-blue.svg)](https://github.com/react-native-community/react-native-video)  
+
 
 
 ## 已完成功能
