@@ -8,6 +8,7 @@ const demo = {
   Music_Detail_Url: MusicBaseUrl + '/playlist/detail',
   /**网易云音频地址*/
   Music_Mp3_Url: 'https://music.163.com/song/media/outer/url?id={id}.mp3'
+  
 }
 
 export { demo };
