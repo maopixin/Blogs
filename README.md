@@ -14,8 +14,8 @@
 首先保证安装了react-native的开发环境（[react-native开发环境安装传送门](https://facebook.github.io/react-native/docs/getting-started)）
 
 ```bash
-git clone https://github.com/maopixin/lzbk.git
-cd lzbk 
+git clone https://github.com/maopixin/Blogs.git
+cd Blogs 
 npm i
 react-native run-ios
 或
